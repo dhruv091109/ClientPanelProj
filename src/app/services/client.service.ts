@@ -24,8 +24,10 @@ export class ClientService {
     this.clients = this.clientsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Client;
-        data.id = a.payload.doc.id;
-        return data;
+        // data.id = a.payload.doc.id;
+        // return data;
+        const id = a.payload.doc.id;
+        return { id, ...data };
       }))
     );
     return this.clients;
